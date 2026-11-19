@@ -51,4 +51,4 @@ Open [Fil on localhost](http://127.0.0.1:8000) and select **Try the guided demo*
 - [Case study](docs/case-study.md) explains how a passing simulation missed an invented delivery deadline.
 - [Evaluation guide](docs/evaluation-v2.md) describes the local, provider, and voice checks.
 - [Live voice setup](docs/voice-setup.md) explains how to connect an agent.
-- [MIT license](LICENSE) and [audio credits](docs/media/credits.md).
+- [MIT license](LICENSE)
