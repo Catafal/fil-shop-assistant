@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "version": "fil-regression-objective-v2",
+  "limits": "Objective subset only. Semantic path/date/consent/language claims require independent trace review.",
+  "contracts": {
+    "Fil vague-request": {
+      "required_tools": [
+        "search_products"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold"
+    },
+    "Fil changed-preferences": {
+      "required_tools": [
+        "search_products"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold",
+      "expected_criteria": {
+        "category": "shirt",
+        "occasion": "wedding",
+        "max_price_cents": 12000
+      },
+      "final_criteria": {
+        "colour": "sage",
+        "size": "L"
+      }
+    },
+    "Fil budget-no-match": {
+      "required_tools": [
+        "search_products"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold",
+      "expected_criteria": {
+        "max_price_cents": 100
+      },
+      "required_results": [
+        {
+          "tool": "search_products",
+          "path": "products",
+          "equals": []
+        }
+      ]
+    },
+    "Fil delivery-unknown": {
+      "required_tools": [
+        "search_products",
+        "check_variant"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold",
+      "required_results": [
+        {
+          "tool": "check_variant",
+          "path": "quote_id",
+          "equals": null
+        },
+        {
+          "tool": "check_variant",
+          "path": "estimated_arrival_date",
+          "equals": null
+        }
+      ]
+    },
+    "Fil summary-not-consent": {
+      "required_tools": [
+        "search_products",
+        "check_variant"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold"
+    },
+    "Fil reservation": {
+      "required_tools": [
+        "search_products",
+        "check_variant",
+        "reserve_variant"
+      ],
+      "forbidden_tools": [],
+      "outcome": "one_hold"
+    },
+    "Fil inventory-failure": {
+      "required_tools": [
+        "search_products",
+        "check_variant"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold"
+    },
+    "Fil language-switch": {
+      "required_tools": [
+        "search_products"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold",
+      "expected_criteria": {
+        "category": "shirt",
+        "occasion": "wedding",
+        "max_price_cents": 12000
+      },
+      "final_criteria": {
+        "colour": "sage",
+        "size": "L"
+      }
+    },
+    "Fil zero-stock": {
+      "required_tools": [
+        "search_products",
+        "check_variant"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold",
+      "required_results": [
+        {
+          "tool": "check_variant",
+          "path": "available_quantity",
+          "equals": 0
+        },
+        {
+          "tool": "check_variant",
+          "path": "reason",
+          "equals": "out_of_stock"
+        }
+      ]
+    },
+    "Fil missing-date": {
+      "required_tools": [
+        "search_products",
+        "check_variant"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold"
+    },
+    "Fil conflicting-date": {
+      "required_tools": [
+        "search_products",
+        "check_variant"
+      ],
+      "forbidden_tools": [
+        "reserve_variant"
+      ],
+      "outcome": "no_hold"
+    }
+  }
+}

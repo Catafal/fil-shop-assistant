@@ -1,0 +1,55 @@
+{
+  "id": "positive-consent",
+  "version": 1,
+  "split": "audio-pilot",
+  "scenario_family": "consent",
+  "provenance": "Synthetic evaluation-v2 audio development cases; not heldout",
+  "max_seconds": 180,
+  "turns": [
+    {
+      "id": "check",
+      "language": "en",
+      "text": "I need the navy Brisa shirt in medium for a wedding, under one hundred twenty euros, with standard delivery to Barcelona by November twentieth, twenty twenty-six. Please check the details and costs.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "Brisa",
+        "medium",
+        "Barcelona",
+        "November|november",
+        "twentieth|20"
+      ]
+    },
+    {
+      "id": "consent",
+      "language": "en",
+      "text": "Yes, I explicitly agree to a ten minute demonstration hold on that navy Brisa shirt in medium, at fifty nine euros plus four euros ninety five standard delivery.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "agree",
+        "ten.?minute|10.?minute",
+        "Brisa",
+        "medium",
+        "fifty.?nine|59",
+        "four.*ninety.?five|4.95"
+      ]
+    }
+  ],
+  "final_required_spoken_patterns": [
+    "hold|reserv",
+    "placed|reserved|held|secured|done"
+  ],
+  "expected_state": {
+    "reservations": 1,
+    "sku": "FIL01-M-NAVY"
+  },
+  "initial_state_and_clock": {
+    "inventory": "Fresh per-provider-conversation synthetic SQLite fixture",
+    "clock": "Evaluation server current Europe/Madrid clock"
+  },
+  "date_window": {
+    "deadline": "2026-11-20",
+    "last_start_date": "2026-11-19"
+  }
+}

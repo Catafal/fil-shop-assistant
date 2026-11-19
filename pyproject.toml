@@ -1,0 +1,22 @@
+[project]
+name = "fil-shop-assistant"
+version = "0.1.0"
+description = "Fil fictional clothing-shop voice assistant"
+requires-python = ">=3.12"
+dependencies = ["fastapi>=0.115", "uvicorn>=0.34", "python-dotenv>=1.0", "elevenlabs==2.76.0"]
+
+[dependency-groups]
+dev = ["pytest>=8", "httpx>=0.28", "ruff>=0.11"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fil_shop"]

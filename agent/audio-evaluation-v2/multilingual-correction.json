@@ -1,0 +1,74 @@
+{
+  "id": "multilingual-correction",
+  "version": 1,
+  "split": "audio-pilot",
+  "scenario_family": "language",
+  "provenance": "Synthetic evaluation-v2 audio development cases; not heldout",
+  "max_seconds": 180,
+  "turns": [
+    {
+      "id": "en-start",
+      "language": "en",
+      "text": "I need a navy shirt, size medium, for a wedding, under one hundred twenty euros.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "navy",
+        "medium",
+        "wedding",
+        "120|one hundred"
+      ]
+    },
+    {
+      "id": "ca-colour",
+      "language": "ca",
+      "text": "Espera, millor verd sàlvia, el mateix pressupost.",
+      "kind": "language_switch",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "verd",
+        "s[aà]lvia",
+        "pressupost"
+      ]
+    },
+    {
+      "id": "es-size",
+      "language": "es",
+      "text": "Mejor talla L, mantén el verde y el presupuesto.",
+      "kind": "language_switch",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "talla L",
+        "verde",
+        "presupuesto"
+      ]
+    },
+    {
+      "id": "en-summary",
+      "language": "en",
+      "text": "Back to English, please. Confirm my latest preferences.",
+      "kind": "language_switch",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "English",
+        "preferences"
+      ]
+    }
+  ],
+  "final_required_spoken_patterns": [
+    "sage|green",
+    "large|size L|talla L",
+    "wedding",
+    "120|one hundred (?:and )?twenty"
+  ],
+  "expected_state": {
+    "colour": "sage",
+    "size": "L",
+    "max_price_cents": 12000,
+    "reservations": 0
+  },
+  "initial_state_and_clock": {
+    "inventory": "Fresh per-provider-conversation synthetic SQLite fixture",
+    "clock": "Evaluation server current Europe/Madrid clock"
+  }
+}

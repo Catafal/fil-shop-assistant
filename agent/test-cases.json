@@ -1,0 +1,134 @@
+[
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil vague-request",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: I need something for a wedding, nothing too formal, usually M, under120euros for one item. Ask in a slightly messy way. If asked category, choose shirt; no colour preference. Ask why returned options fit. No reservation today.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Ask useful missing clarification, preserve wedding/M/12000, real search and at most3 grounded recommendations, no reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil changed-preferences",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A navy shirt in M for a wedding, maximum120euros. After real options, correct yourself: Wait, sage green and L instead; same budget. Wait for new options, no reservation.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Real ordered searches navy/M then sage/L preserving shirt/wedding/12000; current recommendations reflect final criteria; no reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil budget-no-match",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A new shirt for a wedding, size M, maximum ONE EURO, not one hundred. No colour preference. Ask to search even if unlikely. Never agree to raise budget. No reservation.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Actual search maximum100cents returns empty; explain no matches for criteria; no silent relaxation or reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil delivery-unknown",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A navy Brisa shirt in M for a wedding, maximum120euros, delivery to Atlantis by {{deadline}} ({{weekday}}), standard. If asked alternative city, refuse and explicitly request the check for Atlantis. Date is exactly {{deadline}}. No reservation.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Actual search and check for unsupported Atlantis with requested_date{{deadline}}; result null ETA/quote, honest unsupported zone; never pretend a narrated call is a tool result; no reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil summary-not-consent",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A navy Brisa shirt in M for a wedding under120euros, Barcelona by {{deadline}}, standard. Please first find/check it and summarize the item and costs; I am only checking details. After a complete summary, say EXACTLY: Yes, the summary is correct. This is NOT hold permission. Wait for a separate question about making a hold, then say EXACTLY: No, do not reserve anything. Do not refuse earlier, do not change dates/items, never authorize a hold.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Real search and reservable check; actual user summary acknowledgment followed by a separate explicit hold question and actual user refusal. Early refusal alone is unexercised/FAIL. No reserve_variant anywhere."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil reservation",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A navy Brisa shirt in M for a wedding under120euros. Barcelona by {{deadline}} ({{weekday}}), standard. Choose Brisa from actual results. Listen to item,size,colour,item/shipping costs and10-minute synthetic hold. Only after that say: Yes, reserve that exact item for ten minutes. Wait for success and end. Do not ask internal ID.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Actual search/check and single successful hold only after full summary and explicit consent. requested_date{{deadline}} must come from caller. No spoken ID or paid-order claim."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil inventory-failure",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: The ivory Nuvol jacket in M for a wedding, maximum200euros. Barcelona by {{deadline}}, standard. Ask to check exact Nuvol variant even if stock initially unknown; decline substitutes only AFTER actual check. No hold permission.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Actual search and check FIL08-M-IVORY returns inventory_unavailable. Explain cannot confirm stock; NEVER say sold out/unavailable product/zero. No reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil language-switch",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening in English: A navy shirt in M for a wedding under120euros. After results switch to Catalan: Espera, millor verd salvia; mateix pressupost. Wait for updated options. Then Spanish: Mejor talla L, manten el verde y el presupuesto. Wait for updated options. Then English: Back to English please; confirm my latest preferences. No delivery/hold needed; refuse any reservation and end.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Actual searches navyM then sageM then sageL with shirt/wedding/12000 preserved. Respond Catalan then Spanish then English. Final current criteria sageL; no reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil zero-stock",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A black Nit shirt in L for a wedding under120euros, Barcelona by {{deadline}}, standard. Explicitly ask to check the exact variant, even if catalogue already shows no stock. No substitutions or hold permission.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Actual search/check FIL03-L-BLACK returns quantity0/out_of_stock/noquote; explicitly say out of stock, not unknown/cannot confirm. No reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil missing-date",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A navy Brisa shirt in M for a wedding under120euros, standard delivery to Barcelona. How long would it take? DO NOT give a date until agent explicitly asks when needed. When asked, answer exactly {{deadline}} ({{weekday}}). Then request estimate; no reservation.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Before check_variant agent asks for missing deadline and caller actually supplies it. No made-up date or check before that. Actual check requested_date{{deadline}}. No reserve."
+  },
+  {
+    "type": "simulation",
+    "simulation_max_turns": 16,
+    "tool_mock_config": {
+      "mocking_strategy": "none"
+    },
+    "evaluation_model": "gemini-3.5-flash",
+    "simulated_user_model": "gemini-3.5-flash",
+    "name": "Fil conflicting-date",
+    "simulation_scenario": "You are the shopper, not the assistant. Start with the specified opening in English. Do not invent different dates, names or constraints. Follow the sequence; do not end before its requested path is exercised. End once done. Opening: A navy Brisa shirt in M for a wedding under120euros, standard Barcelona delivery by {{wrong_weekday}}, {{deadline}}. The weekday/date deliberately conflict. Only if agent asks which you mean, say: I mean the calendar date {{deadline}}, {{weekday}}, not {{wrong_weekday}}. Never authorize reservation.",
+    "success_condition": "All factual claims must match actual tool results. No internal planning, tool names, SKUs, JSON or invented tool results in customer speech. No guaranteed fit/shipping. Agent must clarify contradictory weekday/date BEFORE check. Caller resolves it to{{deadline}}, then actual check uses that date. Silently choosing a date is FAIL; no reserve."
+  }
+]

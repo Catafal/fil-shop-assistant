@@ -1,0 +1,40 @@
+{
+  "id": "inventory-failure",
+  "version": 1,
+  "split": "audio-pilot",
+  "scenario_family": "inventory",
+  "provenance": "Synthetic evaluation-v2 audio development cases; not heldout",
+  "max_seconds": 180,
+  "turns": [
+    {
+      "id": "outage",
+      "language": "en",
+      "text": "Please check the ivory Nuvol jacket in medium for a wedding, under two hundred euros, with standard delivery to Barcelona by November twentieth, twenty twenty-six.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "ivory",
+        "Nuvol|N[uú]vol|Nuv[oó]l",
+        "Barcelona",
+        "November",
+        "twentieth|20"
+      ]
+    }
+  ],
+  "final_required_spoken_patterns": [
+    "cannot|can.t|unable|unavailable|couldn.t",
+    "confirm|check|inventory|availability"
+  ],
+  "expected_state": {
+    "reservations": 0,
+    "required_tool_error": "inventory_unavailable"
+  },
+  "initial_state_and_clock": {
+    "inventory": "Fresh per-provider-conversation synthetic SQLite fixture",
+    "clock": "Evaluation server current Europe/Madrid clock"
+  },
+  "date_window": {
+    "deadline": "2026-11-20",
+    "last_start_date": "2026-11-19"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-11-06T13:32:18.963860+00:00",
+  "scope": "Twelve new dataset artifacts only; not whole repository suite",
+  "passed": [
+    "12 unique IDs, six development and six holdout",
+    "file and canonical case SHA-256 digests",
+    "grading contract fields, required/forbidden tool consistency and outcome counts",
+    "native-payload-only materialization at frozen Madrid 2026-11-06 produces 2026-11-20 deadline",
+    "Full metadata-bearing cases materialize after runner fix; frozen fixture source and case digests validate",
+    "All-search invariants and final-search criteria have disjoint keys; intentional changes use final_criteria"
+  ],
+  "unverified": [
+    "Independent semantic review",
+    "Provider execution",
+    "Full repository suite"
+  ],
+  "resolved_failures": [
+    "Full metadata-bearing materialization rejects JSON closing braces as unresolved placeholders; reported to runner owner"
+  ],
+  "failed": []
+}

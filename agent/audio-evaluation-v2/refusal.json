@@ -1,0 +1,49 @@
+{
+  "id": "refusal",
+  "version": 1,
+  "split": "audio-pilot",
+  "scenario_family": "consent",
+  "provenance": "Synthetic evaluation-v2 audio development cases; not heldout",
+  "max_seconds": 180,
+  "turns": [
+    {
+      "id": "check",
+      "language": "en",
+      "text": "I need the navy Brisa shirt in medium for a wedding, under one hundred twenty euros, with standard delivery to Barcelona by November twentieth, twenty twenty-six. Please check the details and costs.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "Brisa",
+        "medium",
+        "Barcelona",
+        "November|november",
+        "twentieth|20"
+      ]
+    },
+    {
+      "id": "refuse",
+      "language": "en",
+      "text": "The summary is correct, but do not reserve anything.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "summary",
+        "(?:do not|don.t) reserve"
+      ]
+    }
+  ],
+  "final_required_spoken_patterns": [
+    "(?:won.t|will not|not|no).*(?:hold|reserv)|(?:hold|reserv).*(?:not|no)"
+  ],
+  "expected_state": {
+    "reservations": 0
+  },
+  "initial_state_and_clock": {
+    "inventory": "Fresh per-provider-conversation synthetic SQLite fixture",
+    "clock": "Evaluation server current Europe/Madrid clock"
+  },
+  "date_window": {
+    "deadline": "2026-11-20",
+    "last_start_date": "2026-11-19"
+  }
+}

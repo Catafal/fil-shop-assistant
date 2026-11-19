@@ -1,0 +1,43 @@
+{
+  "id": "closing",
+  "version": 1,
+  "split": "audio-pilot",
+  "scenario_family": "closing",
+  "provenance": "Synthetic evaluation-v2 audio development cases; not heldout",
+  "max_seconds": 180,
+  "turns": [
+    {
+      "id": "browse",
+      "language": "en",
+      "text": "I need a navy shirt, size medium, for a wedding, under one hundred twenty euros.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "navy",
+        "medium",
+        "wedding",
+        "120|one hundred"
+      ]
+    },
+    {
+      "id": "goodbye",
+      "language": "en",
+      "text": "No more help needed, thank you. Goodbye.",
+      "kind": "goodbye",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "goodbye|good bye"
+      ]
+    }
+  ],
+  "final_required_spoken_patterns": [
+    "\\b(?:goodbye|good bye|bye|take care|have a (?:good|great|lovely|wonderful|nice) (?:day|evening|night|weekend))\\b"
+  ],
+  "expected_state": {
+    "reservations": 0
+  },
+  "initial_state_and_clock": {
+    "inventory": "Fresh per-provider-conversation synthetic SQLite fixture",
+    "clock": "Evaluation server current Europe/Madrid clock"
+  }
+}

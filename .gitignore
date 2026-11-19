@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+*.sqlite
+*.db
+.DS_Store
+/data/
+.pytest_cache/
+.ruff_cache/
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+/web/node_modules/
+/web/dist/

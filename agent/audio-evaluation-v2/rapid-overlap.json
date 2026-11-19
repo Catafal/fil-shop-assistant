@@ -1,0 +1,50 @@
+{
+  "id": "rapid-overlap",
+  "version": 1,
+  "split": "audio-pilot",
+  "scenario_family": "interruption",
+  "provenance": "Synthetic evaluation-v2 audio development cases; not heldout",
+  "max_seconds": 180,
+  "turns": [
+    {
+      "id": "en-start",
+      "language": "en",
+      "text": "I need a navy shirt, size medium, for a wedding, under one hundred twenty euros.",
+      "kind": "request",
+      "send_mode": "after_response",
+      "required_asr_patterns": [
+        "navy",
+        "medium",
+        "wedding",
+        "120|one hundred"
+      ]
+    },
+    {
+      "id": "interrupt-change",
+      "language": "en",
+      "text": "Actually, change that to sage green and size large, with the same budget. Please confirm my latest preferences.",
+      "kind": "user_interruption",
+      "send_mode": "overlap",
+      "required_asr_patterns": [
+        "sage|green",
+        "large",
+        "budget",
+        "preferences"
+      ]
+    }
+  ],
+  "final_required_spoken_patterns": [
+    "sage|green",
+    "large|size L"
+  ],
+  "expected_state": {
+    "colour": "sage",
+    "size": "L",
+    "max_price_cents": 12000,
+    "reservations": 0
+  },
+  "initial_state_and_clock": {
+    "inventory": "Fresh per-provider-conversation synthetic SQLite fixture",
+    "clock": "Evaluation server current Europe/Madrid clock"
+  }
+}

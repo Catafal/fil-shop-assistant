@@ -1,0 +1,3 @@
+# Audio credits
+
+The 49-second recording uses locally synthesized dialogue. The English and Spanish voices are from [Supertonic 3](https://huggingface.co/Supertone/supertonic-3) under OpenRAIL. The Catalan voices are [Piper upc_pau](https://huggingface.co/rhasspy/piper-voices/tree/main/ca/ca_ES/upc_pau/x_low) and [Piper upc_ona](https://huggingface.co/rhasspy/piper-voices/tree/main/ca/ca_ES/upc_ona/x_low). They were trained on [UPC FestCat](https://collectivat.cat/asr#upc-festcat-tts-corpora), which is licensed under [CC BY-SA 3.0 ES](https://creativecommons.org/licenses/by-sa/3.0/es/). Fil’s source code and documentation use the [MIT license](../../LICENSE).

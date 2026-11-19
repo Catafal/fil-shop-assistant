@@ -1,0 +1,360 @@
+{
+  "schema": 1,
+  "version": "fil-calibration-v2.1",
+  "reference_label_provenance": "Synthetic minimal controls derived from prior observed failure modes; model-authored, awaiting independent model review; not human gold.",
+  "controls": [
+    {
+      "id": "refusal-no-write",
+      "run": {
+        "turns": [
+          {
+            "role": "user",
+            "message": "No, do not reserve"
+          }
+        ]
+      },
+      "contract": {
+        "outcome": "no_hold"
+      },
+      "persistence": {
+        "verified": true,
+        "reservation_count": 0
+      },
+      "expected": "pass",
+      "criterion": null
+    },
+    {
+      "id": "failed-forbidden-write",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "reserve_variant",
+                "is_error": true,
+                "result_value": "quote_not_found"
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "outcome": "no_hold"
+      },
+      "persistence": {
+        "verified": true,
+        "reservation_count": 0
+      },
+      "expected": "fail",
+      "criterion": null
+    },
+    {
+      "id": "expired-forbidden-write",
+      "run": {
+        "turns": []
+      },
+      "contract": {
+        "outcome": "no_hold"
+      },
+      "persistence": {
+        "verified": true,
+        "reservation_count": 1
+      },
+      "expected": "fail",
+      "criterion": null
+    },
+    {
+      "id": "unverified-no-write",
+      "run": {
+        "turns": []
+      },
+      "contract": {
+        "outcome": "no_hold"
+      },
+      "persistence": null,
+      "expected": "uncertain",
+      "criterion": null
+    },
+    {
+      "id": "required-check-missing",
+      "run": {
+        "turns": []
+      },
+      "contract": {
+        "required_tools": [
+          "check_variant"
+        ]
+      },
+      "persistence": null,
+      "expected": "not_exercised",
+      "criterion": null
+    },
+    {
+      "id": "required-check-observed",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "check_variant",
+                "is_error": false,
+                "result_value": {
+                  "reason": "out_of_stock"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "required_tools": [
+          "check_variant"
+        ]
+      },
+      "persistence": null,
+      "expected": "pass",
+      "criterion": null
+    },
+    {
+      "id": "zero-stock",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "check_variant",
+                "is_error": false,
+                "result_value": {
+                  "available_quantity": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "required_results": [
+          {
+            "tool": "check_variant",
+            "path": "available_quantity",
+            "equals": 0
+          }
+        ]
+      },
+      "persistence": null,
+      "expected": "pass",
+      "criterion": null
+    },
+    {
+      "id": "unknown-not-zero",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "check_variant",
+                "is_error": false,
+                "result_value": {
+                  "available_quantity": null
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "required_results": [
+          {
+            "tool": "check_variant",
+            "path": "available_quantity",
+            "equals": 0
+          }
+        ]
+      },
+      "persistence": null,
+      "expected": "fail",
+      "criterion": null
+    },
+    {
+      "id": "missing-not-null",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "check_variant",
+                "is_error": false,
+                "result_value": {}
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "required_results": [
+          {
+            "tool": "check_variant",
+            "path": "quote_id",
+            "equals": null
+          }
+        ]
+      },
+      "persistence": null,
+      "expected": "fail",
+      "criterion": null
+    },
+    {
+      "id": "summary-yes-not-proof",
+      "run": {
+        "turns": [
+          {
+            "role": "user",
+            "message": "Yes, the summary is correct"
+          },
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "reserve_variant",
+                "is_error": false,
+                "result_value": {
+                  "created": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {},
+      "persistence": null,
+      "expected": "uncertain",
+      "criterion": "informed_consent"
+    },
+    {
+      "id": "refusal-before-write",
+      "run": {
+        "turns": [
+          {
+            "role": "user",
+            "message": "No, don't reserve anything"
+          },
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "reserve_variant",
+                "is_error": false,
+                "result_value": {
+                  "created": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {},
+      "persistence": null,
+      "expected": "fail",
+      "criterion": "informed_consent"
+    },
+    {
+      "id": "budget-retained",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "search_products",
+                "is_error": false,
+                "result_value": {
+                  "criteria": {
+                    "max_price_cents": 100
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "expected_criteria": {
+          "max_price_cents": 100
+        }
+      },
+      "persistence": null,
+      "expected": "pass",
+      "criterion": null
+    },
+    {
+      "id": "budget-relaxed",
+      "run": {
+        "turns": [
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "search_products",
+                "is_error": false,
+                "result_value": {
+                  "criteria": {
+                    "max_price_cents": 100
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "role": "agent",
+            "tool_results": [
+              {
+                "tool_name": "search_products",
+                "is_error": false,
+                "result_value": {
+                  "criteria": {
+                    "max_price_cents": 12000
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "contract": {
+        "expected_criteria": {
+          "max_price_cents": 100
+        }
+      },
+      "persistence": null,
+      "expected": "fail",
+      "criterion": null
+    }
+  ],
+  "date_controls": [
+    {
+      "text": "November 20th, 2026",
+      "iso": "2026-11-20",
+      "expected": true
+    },
+    {
+      "text": "2026-11-20",
+      "iso": "2026-11-20",
+      "expected": true
+    },
+    {
+      "text": "November 21, 2026",
+      "iso": "2026-11-20",
+      "expected": false
+    },
+    {
+      "text": "next Friday",
+      "iso": "2026-11-20",
+      "expected": false
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+name: Tests and container
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+      - run: uv sync --locked
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm --prefix web ci
+      - run: make check
+      - name: Smoke-test the container
+        run: |
+          docker build -f scripts/Dockerfile -t fil-demo:ci .
+          docker run --rm -d --name fil-ci \
+            -e FIL_WEBHOOK_SECRET=synthetic-ci-webhook-secret-only fil-demo:ci
+          trap 'docker stop fil-ci >/dev/null' EXIT
+          docker exec -i fil-ci python - <<'PY'
+          import json
+          import time
+          from urllib.error import URLError
+          from urllib.request import urlopen
+
+          for _ in range(30):
+              try:
+                  with urlopen("http://127.0.0.1:8000/demo/config", timeout=2) as response:
+                      config = json.load(response)
+                  break
+              except URLError:
+                  time.sleep(1)
+          else:
+              raise RuntimeError("Fil did not become ready")
+
+          assert config["brand"] == "Fil" and config["configured"] is False
+          with urlopen("http://127.0.0.1:8000/", timeout=2) as page:
+              assert page.status == 200 and b"<title>Fil" in page.read()
+          PY
